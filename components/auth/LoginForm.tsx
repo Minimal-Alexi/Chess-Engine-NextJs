@@ -1,5 +1,6 @@
 "use client";
 import useField from "@/hook/useField";
+import { loginUser } from "@/lib/auth";
 
 export default function LoginForm() {
   const emailField = useField('email');
@@ -8,7 +9,15 @@ export default function LoginForm() {
   async function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
     try {
-      console.log("Log in request: " + emailField.value + " " + passwordField.value)
+      console.log({
+        "email":emailField.value,
+        "password":passwordField.value
+      })
+      const data = await loginUser({
+        "email":emailField.value,
+        "password":passwordField.value
+      })
+      console.log(data)
     } catch (err) {
       console.error(err);
     }
@@ -39,6 +48,7 @@ export default function LoginForm() {
         type="submit"
         className="rounded bg-black p-2 text-white"
       >
+        Log In
       </button>
     </form>
   );
