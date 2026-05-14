@@ -1,8 +1,13 @@
 "use client";
+import { useAuth } from "@/context/authContext";
 import useField from "@/hook/useField";
 import { loginUser } from "@/lib/auth";
+import { useRouter } from "next/navigation";
+
 
 export default function LoginForm() {
+   const router = useRouter();
+  const {login} = useAuth()
   const emailField = useField('email');
   const passwordField = useField('password')
 
@@ -17,6 +22,8 @@ export default function LoginForm() {
         "email":emailField.value,
         "password":passwordField.value
       })
+      login(data.session_id);
+      router.push("/dashboard/games")
       console.log(data)
     } catch (err) {
       console.error(err);

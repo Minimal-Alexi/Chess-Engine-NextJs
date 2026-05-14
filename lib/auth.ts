@@ -48,7 +48,7 @@ export type RegisterResponse = {
 
 export async function registerUser(
   data: RegisterPayload
-): Promise<RegisterPayload> {
+): Promise<RegisterResponse> {
     console.log(API_URL)
   const response = await fetch(`${API_URL}/api/v1/users/register`, {
     method: "POST",
