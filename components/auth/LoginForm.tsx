@@ -14,17 +14,14 @@ export default function LoginForm() {
   async function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
     try {
-      console.log({
-        "email":emailField.value,
-        "password":passwordField.value
-      })
       const data = await loginUser({
         "email":emailField.value,
         "password":passwordField.value
       })
-      login(data.session_id);
-      router.push("/dashboard/games")
-      console.log(data)
+      if(data.user.session_id){
+        login(data.user.session_id);
+        router.push("/dashboard/games")
+      }
     } catch (err) {
       console.error(err);
     }

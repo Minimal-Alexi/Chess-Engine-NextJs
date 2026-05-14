@@ -6,9 +6,9 @@ export type LoginPayload = {
 };
 
 export type LoginResponse = {
-  session_id: string;
+  message: string;
   user: {
-    id: string;
+    session_id: string;
     username: string;
   };
 };
@@ -39,9 +39,9 @@ export type RegisterPayload = {
 }
 
 export type RegisterResponse = {
-  session_id: string;
+  message: string;
   user: {
-    id: string;
+    session_id: string;
     username: string;
   };
 };

@@ -14,19 +14,15 @@ export default function RegisterForm() {
   async function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
     try {
-      console.log({
-        "username": userField.value,
-        "email":emailField.value,
-        "password":passwordField.value
-      })
       const data = await registerUser({
         "username":userField.value,
         "email":emailField.value,
         "password":passwordField.value
       })
-      login(data.session_id);
-      router.push("/dashboard/games")
-      console.log(data)
+      if(data.user.session_id){
+        login(data.user.session_id);
+        router.push("/dashboard/games")
+      }
     } catch (err) {
       console.error(err);
     }
