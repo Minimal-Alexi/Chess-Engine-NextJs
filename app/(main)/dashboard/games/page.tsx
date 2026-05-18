@@ -10,7 +10,7 @@ const AllMyGamesPage = async () => {
 
   return (
     <div>
-      <div>AllMyGamesPage</div>
+      <div>My Games</div>
           {games.map((game: Game) => (
               <GameCard key={game.id} game={game} />
           ))}
