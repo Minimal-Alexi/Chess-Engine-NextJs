@@ -1,4 +1,5 @@
 "use client";
+import { toast } from "sonner";
 import useField from "@/hook/useField";
 import { useRouter } from "next/navigation";
 
@@ -21,8 +22,14 @@ async function handleSubmit(e: React.SubmitEvent) {
     }),
   });
 
+  const registerJson = await res.json()
+
   if (res.ok) {
+    toast.success(`${res.status}:${registerJson.message}`)
     router.push("/dashboard/games");
+  }
+  else{
+    toast.error(`${res.status}:${registerJson.message}`)
   }
 }
 
