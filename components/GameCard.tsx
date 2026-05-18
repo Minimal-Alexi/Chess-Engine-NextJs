@@ -3,19 +3,24 @@ import { Game } from "@/types/game";
 import { Board } from "./chess/Board";
 import { useRouter } from "next/navigation";
 
+type GameCardProps = {
+  game: Game;
+};
 
-export const GameCard = (game: Game) => {
-    const router = useRouter();
+export const GameCard = ({ game }: GameCardProps) => {
+  const router = useRouter();
+  return (
+    <div
+      className="flex flex-row items-stretch gap-4 h-72"
+      onClick={() => router.push(`/dashboard/games/${game.id}`)}
+    >
+      <div className="w-1/3 flex items-center">
+        <p>Turn: {game.turnCounter}</p>
+      </div>
 
-    return (
-        <div className="flex flex-row items-center gap-4" key={game.id} onClick={() => router.push(`/dashboard/games/${game.id}`)}>
-            <div className="w-1/3">
-                <p>Turn: {game.turnCounter}</p>
-            </div>
-
-            <div className="w-2/3">
-                <Board map={game.state.board} />
-            </div>
-        </div>
-    )
-}
+      <div className="w-2/3 flex items-center justify-center">
+        <Board map={game.state.board} size={32} />
+      </div>
+    </div>
+  );
+};
