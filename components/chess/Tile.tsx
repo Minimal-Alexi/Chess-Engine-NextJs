@@ -16,27 +16,35 @@ const pieceToImage: Record<string, string> = {
 
 import Image from "next/image";
 
-export const RenderSquare = (row:number, col:number, piece: string) => {
-    const isDark = (row + col) % 2 === 1;
-    const isPiece = piece != ' '
-    
+type SquareProps = {
+  row: number;
+  col: number;
+  piece: string;
+  size: number;
+};
 
-    return (
-      <div
-        key={`${row}-${col}`}
-        style={{
-          width: 100,
-          height: 100,
-          backgroundColor: isDark ? "#93452a" : "b28a7c",
-        }}>
-                  {piece && piece !== " " && (
+export const RenderSquare = ({ row, col, piece, size }: SquareProps) => {
+  const isDark = (row + col) % 2 === 1;
+
+  return (
+    <div
+      style={{
+        width: size,
+        height: size,
+        backgroundColor: isDark ? "#93452a" : "#b28a7c",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      {piece !== " " && (
         <Image
           src={pieceToImage[piece]}
           alt={piece}
-          width={100}
-          height={100}
+          width={size}
+          height={size}
         />
       )}
-        </div>
-    );
-  };
+    </div>
+  );
+};
