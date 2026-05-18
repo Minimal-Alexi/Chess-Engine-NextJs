@@ -1,5 +1,6 @@
 import { Board } from "@/components/chess/Board";
 import { getAllMyGames } from "@/lib/games";
+import { Game } from "@/types/game";
 
 const AllMyGamesPage = async () => {
   const res = await getAllMyGames();
@@ -11,7 +12,7 @@ const AllMyGamesPage = async () => {
     <div>
       <div>AllMyGamesPage</div>
 
-      {games.map((game) => (
+      {games.map((game:Game) => (
         <div key={game.id}>
           <Board map={game.state.board}/>
         </div>
