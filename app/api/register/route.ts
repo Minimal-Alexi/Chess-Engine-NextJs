@@ -10,8 +10,12 @@ export async function POST(req: Request) {
   });
 
   const data = await res.json();
+  
+  if (!data.user || !data.user.session_id) {
+    return NextResponse.json(data,{status:res.status});
+  }
 
-  const response = NextResponse.json(data);
+  const response = NextResponse.json(data,{status:res.status});
 
   response.cookies.set("token", data.user.session_id, {
     httpOnly: true,
