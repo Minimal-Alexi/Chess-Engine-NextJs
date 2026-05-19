@@ -1,3 +1,4 @@
+import { InteractiveBoard } from "@/components/chess/InteractiveBoard";
 import { getMyGame } from "@/lib/games"
 
 const GamePage = async ({params}: {params: {game_id:string}}) => {
@@ -11,6 +12,7 @@ const GamePage = async ({params}: {params: {game_id:string}}) => {
     return (
         <div>
             <div>Match Page</div>
+            <InteractiveBoard game = {game}/>
         </div>
     )
 }

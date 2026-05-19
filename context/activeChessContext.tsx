@@ -3,7 +3,6 @@ import { getMyLegalMoves, playTurn } from "@/lib/games";
 import { Game } from "@/types/game";
 import {
   createContext,
-  useContext,
   useState,
   useCallback,
   ReactNode,
@@ -27,8 +26,8 @@ const ActiveChessContext = createContext<ActiveChessContextType | undefined>(
   undefined
 );
 
-export function ActiveChessProvider({ children }: { children: ReactNode }) {
-    const [game, setGame] = useState<Game | null>(null);
+export function ActiveChessProvider({ children,initialGame }: { children: ReactNode,initialGame: Game | null}) {
+    const [game, setGame] = useState<Game | null>(initialGame);
     const [selectedSquare, setSelectedSquare] = useState<[number, number] | null>(null);
     const [highlightedSquares, setHighlightedSquares] = useState<number[][] | null>(null);
 
