@@ -1,4 +1,4 @@
-import { InteractiveBoard } from "@/components/chess/InteractiveBoard";
+import { InteractiveBoard } from "@/components/chess_interactive/InteractiveBoard";
 import { getMyGame } from "@/lib/games"
 
 const GamePage = async ({params}: {params: {game_id:string}}) => {

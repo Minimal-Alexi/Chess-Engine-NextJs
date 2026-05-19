@@ -1,6 +1,6 @@
 "use client"
 import { Game } from "@/types/game";
-import { Board } from "./chess/Board";
+import { Board } from "./chess_static/Board";
 import { useRouter } from "next/navigation";
 
 type GameCardProps = {
