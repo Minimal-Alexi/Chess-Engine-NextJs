@@ -1,5 +1,4 @@
 "use client"
-import { getMyLegalMoves, playTurn } from "@/lib/games";
 import { Game } from "@/types/game";
 import {
   createContext,
@@ -9,55 +8,62 @@ import {
 } from "react";
 
 type ActiveChessContextType = {
-    game: Game | null;
-    
-    selectedSquare: [number, number] | null;
-    setSelection: (x:number, y:number) => void;
-    clearSelection: () => void;
+  game: Game | null;
 
-    highlightedSquares: number[][] | null;
-    loadHighlightedSquares: () => void;
-    clearHighlightedSquares: () => void;
+  selectedSquare: [number, number] | null;
+  setSelection: (x: number, y: number) => void;
+  clearSelection: () => void;
 
-    onClickDestination: (x:number, y:number) => void;
+  highlightedSquares: number[][] | null;
+  loadHighlightedSquares: () => void;
+  clearHighlightedSquares: () => void;
+
+  onClickDestination: (x: number, y: number) => void;
 };
 
 const ActiveChessContext = createContext<ActiveChessContextType | undefined>(
   undefined
 );
 
-export function ActiveChessProvider({ children,initialGame }: { children: ReactNode,initialGame: Game | null}) {
-    const [game, setGame] = useState<Game | null>(initialGame);
-    const [selectedSquare, setSelectedSquare] = useState<[number, number] | null>(null);
-    const [highlightedSquares, setHighlightedSquares] = useState<number[][] | null>(null);
+export function ActiveChessProvider({ children, initialGame }: { children: ReactNode, initialGame: Game | null }) {
+  const [game, setGame] = useState<Game | null>(initialGame);
+  const [selectedSquare, setSelectedSquare] = useState<[number, number] | null>(null);
+  const [highlightedSquares, setHighlightedSquares] = useState<number[][] | null>(null);
 
 
-    const setSelection = useCallback((x: number, y: number) => {
-        setSelectedSquare([x, y]);}, []);
-    const clearSelection = useCallback(() => {setSelectedSquare(null)},[])
+  const setSelection = useCallback((x: number, y: number) => {
+    setSelectedSquare([x, y]);
+  }, []);
+  const clearSelection = useCallback(() => { setSelectedSquare(null) }, [])
 
-    const loadHighlightedSquares = useCallback(async () => {
-        if(!selectedSquare || !game){
-            return;
-        }
+  const loadHighlightedSquares = useCallback(async () => {
+    if (!selectedSquare || !game) {
+      return;
+    }
 
-        const res = await getMyLegalMoves(game.id,selectedSquare)
-        const body = await res.json();
-        setHighlightedSquares(body.moves);
-    },[game,selectedSquare])
+    const res = await fetch(`/api/games/${game.id}/legalMoves`, {
+      method: "GET",
+      body: JSON.stringify({ position: selectedSquare })
+    })
+    const body = await res.json();
+    setHighlightedSquares(body.moves);
+  }, [game, selectedSquare])
 
-    const clearHighlightedSquares = useCallback(() => {
-        setHighlightedSquares(null);
-    },[])
+  const clearHighlightedSquares = useCallback(() => {
+    setHighlightedSquares(null);
+  }, [])
 
-    const onClickDestination = useCallback(
+  const onClickDestination = useCallback(
     async (x: number, y: number) => {
       if (!game || !selectedSquare) return;
 
       const from = selectedSquare;
       const to: [number, number] = [x, y];
 
-      const response = await playTurn(game.id, from, to);
+      const response = await fetch(`/api/games/${game.id}/legalMoves`, {
+      method: "POST",
+      body: JSON.stringify({ startCoords: from, endCoords:to })
+    });
       const body = await response.json()
 
       setGame(body.game);
@@ -67,7 +73,7 @@ export function ActiveChessProvider({ children,initialGame }: { children: ReactN
     [game, selectedSquare]
   );
 
-    return (
+  return (
     <ActiveChessContext.Provider
       value={{
         game,
@@ -82,6 +88,6 @@ export function ActiveChessProvider({ children,initialGame }: { children: ReactN
     >
       {children}
     </ActiveChessContext.Provider>
-    )
+  )
 }
 
