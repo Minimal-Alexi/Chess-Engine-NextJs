@@ -9,3 +9,11 @@ export async function getAllMyGames(){
 export async function getMyGame(id:number){
     return authFetch(`${apiURL}/api/v1/games/${id}`);
 }
+
+export async function getMyLegalMoves(id:number, position:[number,number]){
+    return authFetch(`${apiURL}/api/v1/games/${id}/legalMoves`,"GET",{position:position})
+}
+
+export async function playTurn(id:number, startCoords:[number,number], endCoords:[number,number]){
+    return authFetch(`${apiURL}/api/v1/games/${id}/playTurn`,"POST",{startCoords:startCoords, endCoords:endCoords})
+}
