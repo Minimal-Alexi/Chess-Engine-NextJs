@@ -21,7 +21,7 @@ type ActiveChessContextType = {
   onClickDestination: (x: number, y: number) => void;
 };
 
-const ActiveChessContext = createContext<ActiveChessContextType | undefined>(
+export const ActiveChessContext = createContext<ActiveChessContextType | undefined>(
   undefined
 );
 
