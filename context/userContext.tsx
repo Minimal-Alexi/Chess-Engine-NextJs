@@ -4,7 +4,6 @@ import { createContext, useState, ReactNode } from "react";
 type UserContextType = {
     id:number;
     username: string;
-    setUsername: (name: string) => void;
     login: (name: string,id:number) => void;
 };
 
@@ -26,7 +25,6 @@ export function UserProvider({ children }: UserProviderProps) {
   const userValue: UserContextType = {
     id,
     username,
-    setUsername,
     login,
   };
 
