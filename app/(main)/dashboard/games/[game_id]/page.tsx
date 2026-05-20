@@ -1,4 +1,5 @@
 import { InteractiveBoard } from "@/components/chess/chess_interactive/InteractiveBoard";
+import { PlayersCard } from "@/components/chess/PlayersCard";
 import { getMyGame } from "@/lib/games"
 
 const GamePage = async ({params}: {params: {game_id:string}}) => {
@@ -12,7 +13,15 @@ const GamePage = async ({params}: {params: {game_id:string}}) => {
     return (
         <div>
             <div>Match Page</div>
-            <InteractiveBoard game = {game}/>
+
+            <div style={{ display: "flex", gap: "16px", alignItems: "flex-start" }}>
+                <InteractiveBoard game={game} size={100} />
+                <PlayersCard
+                    turnCounter={game.game_id}
+                    playerWhite={game.players.white}
+                    playerBlack={game.players.black}
+                />
+            </div>
         </div>
     )
 }
