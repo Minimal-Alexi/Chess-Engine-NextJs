@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { pieceToImage } from "../constants";
+import { pieceToImage, stringToColor, TileType } from "../constants";
 
 type SquareProps = {
   row: number;
@@ -16,7 +16,7 @@ export const RenderSquare = ({ row, col, piece, size }: SquareProps) => {
       style={{
         width: size,
         height: size,
-        backgroundColor: isDark ? "#93452a" : "#b28a7c",
+        backgroundColor: isDark ? stringToColor[TileType.WHITE_TILE] : stringToColor[TileType.BLACK_TILE],
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
