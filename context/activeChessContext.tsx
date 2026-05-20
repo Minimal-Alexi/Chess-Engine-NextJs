@@ -41,9 +41,8 @@ export function ActiveChessProvider({ children, initialGame }: { children: React
       return;
     }
 
-    const res = await fetch(`/api/games/${game.id}/legalMoves`, {
+    const res = await fetch(`/api/games/${game.id}/legalMoves?x=${selectedSquare[0]}&y=${selectedSquare[1]}`, {
       method: "GET",
-      body: JSON.stringify({ position: selectedSquare })
     })
     const body = await res.json();
     setHighlightedSquares(body.moves);
@@ -60,7 +59,7 @@ export function ActiveChessProvider({ children, initialGame }: { children: React
       const from = selectedSquare;
       const to: [number, number] = [x, y];
 
-      const response = await fetch(`/api/games/${game.id}/legalMoves`, {
+      const response = await fetch(`/api/games/${game.id}/playTurn`, {
       method: "POST",
       body: JSON.stringify({ startCoords: from, endCoords:to })
     });

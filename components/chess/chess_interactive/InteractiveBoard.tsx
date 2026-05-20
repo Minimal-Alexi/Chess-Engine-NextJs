@@ -2,7 +2,7 @@
 
 import { ActiveChessProvider } from "@/context/activeChessContext";
 import {Game} from "@/types/game"
-import { RenderSquare } from "../chess_static/Tile";
+import { RenderSquareInteractive } from "./InteractiveTile";
 
 export const InteractiveBoard = ({ game, size = 100 }: { game: Game, size:number}) => {
       const boardSize = 8;
@@ -19,7 +19,7 @@ export const InteractiveBoard = ({ game, size = 100 }: { game: Game, size:number
                 >
                   {Array.from({ length: boardSize }).map((_, row) =>
                   Array.from({ length: boardSize }).map((_, col) => (
-                            <RenderSquare
+                            <RenderSquareInteractive
                               key={`${row}-${col}`}
                               row={row}
                               col={col}
