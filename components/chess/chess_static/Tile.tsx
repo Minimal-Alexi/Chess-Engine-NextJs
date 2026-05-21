@@ -1,20 +1,5 @@
-const pieceToImage: Record<string, string> = {
-  K: "/pieces/wk.png",
-  Q: "/pieces/wq.png",
-  R: "/pieces/wr.png",
-  B: "/pieces/wb.png",
-  N: "/pieces/wn.png",
-  P: "/pieces/wp.png",
-
-  k: "/pieces/bk.png",
-  q: "/pieces/bq.png",
-  r: "/pieces/br.png",
-  b: "/pieces/bb.png",
-  n: "/pieces/bn.png",
-  p: "/pieces/bp.png",
-};
-
 import Image from "next/image";
+import { pieceToImage, stringToColor, TileType } from "../constants";
 
 type SquareProps = {
   row: number;
@@ -31,7 +16,7 @@ export const RenderSquare = ({ row, col, piece, size }: SquareProps) => {
       style={{
         width: size,
         height: size,
-        backgroundColor: isDark ? "#93452a" : "#b28a7c",
+        backgroundColor: isDark ? stringToColor[TileType.BLACK_TILE] : stringToColor[TileType.WHITE_TILE],
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

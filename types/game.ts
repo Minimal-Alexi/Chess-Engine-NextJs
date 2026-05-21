@@ -1,3 +1,5 @@
+import { Player } from "./player"
+
 export interface Game{
     id:number,
     turnCounter:number,
@@ -6,13 +8,7 @@ export interface Game{
         board:string[][],
     }
     players:{
-        white:{
-            userId:number,
-            username:string
-        }
-        black:{
-            userId:number,
-            username:string
-        }
+        white:Player,
+        black:Player,
     }
 } 
