@@ -11,11 +11,16 @@ export async function POST(req: Request) {
 
   const data = await res.json();
 
-  const response = NextResponse.json(data);
+  if (!data.user || !data.user.session_id) {
+    return NextResponse.json(data,{status:res.status});
+  }
 
+  const response = NextResponse.json(data,{status:res.status});
+
+  //TODO: FIX THIS
   response.cookies.set("token", data.user.session_id, {
     httpOnly: true,
-    secure: true,
+    secure: false,
     sameSite: "lax",
     path: "/",
   });

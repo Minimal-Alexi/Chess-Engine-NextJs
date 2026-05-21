@@ -1,9 +1,16 @@
 "use client";
+import { toast } from "sonner";
 import useField from "@/hook/useField";
 import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import { UserContext } from "@/context/userContext";
 
 
 export default function LoginForm() {
+  const ctx = useContext(UserContext)
+
+  if (!ctx) throw new Error("User context not available.");
+
   const router = useRouter();
   const emailField = useField('email');
   const passwordField = useField('password')
@@ -20,8 +27,15 @@ async function handleSubmit(e: React.SubmitEvent) {
     }),
   });
 
+  const loginJson = await res.json()
+
   if (res.ok) {
+    ctx?.login(loginJson.user.username,loginJson.user.id);
+    toast.success(`${res.status}:${loginJson.message}`)
     router.push("/dashboard/games");
+  }
+  else{
+    toast.error(`${res.status}:${loginJson.message}`)
   }
 }
 

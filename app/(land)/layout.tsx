@@ -25,10 +25,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <body className="min-h-full flex flex-col">
+      <div>
         <PublicNavbar/>
         {children}
         <Footer/>
-      </body>
+      </div>
   );
 }

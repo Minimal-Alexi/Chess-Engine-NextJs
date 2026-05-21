@@ -25,10 +25,10 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <body className="min-h-full flex flex-col">
+    <div>
         <DashboardNavbar/>
         {children}
         <Footer/>
-      </body>
+    </div>
   );
 }
