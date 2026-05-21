@@ -19,7 +19,7 @@ export async function POST(req: Request) {
 
   response.cookies.set("token", data.user.session_id, {
     httpOnly: true,
-    secure: true,
+    secure: false,
     sameSite: "lax",
     path: "/",
   });
