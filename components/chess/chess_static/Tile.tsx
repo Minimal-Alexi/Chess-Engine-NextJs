@@ -16,7 +16,7 @@ export const RenderSquare = ({ row, col, piece, size }: SquareProps) => {
       style={{
         width: size,
         height: size,
-        backgroundColor: isDark ? stringToColor[TileType.WHITE_TILE] : stringToColor[TileType.BLACK_TILE],
+        backgroundColor: isDark ? stringToColor[TileType.BLACK_TILE] : stringToColor[TileType.WHITE_TILE],
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

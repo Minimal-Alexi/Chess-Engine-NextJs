@@ -38,9 +38,7 @@ export const RenderSquareInteractive = ({
         selectedSquare?.[0] === row && selectedSquare?.[1] === col;
 
     const isHighlighted =
-        highlightedSquares?.some(
-            ([r, c]) => r === row && c === col
-        ) ?? false;
+        highlightedSquares?.[row]?.[col] === 1;
 
     useEffect(() => {
         if (isSelected) {
@@ -54,7 +52,7 @@ export const RenderSquareInteractive = ({
             const isLegal = isHighlighted;
 
             if (isLegal) {
-                await onClickDestination(row, col);
+                onClickDestination(row, col);
                 return;
             }
         }
@@ -76,12 +74,14 @@ export const RenderSquareInteractive = ({
                 width: size,
                 height: size,
                 backgroundColor: isHighlighted
-                    ? "#90ee90"
+                    ? isDark
+                        ? stringToColor[TileType.BLACK_TILE_HIGHLIGHTED]
+                        : stringToColor[TileType.WHITE_TILE_HIGHLIGHTED]
                     : isSelected
                         ? "#ffd700"
                         : isDark
-                            ? stringToColor[TileType.WHITE_TILE]
-                            : stringToColor[TileType.BLACK_TILE],
+                            ? stringToColor[TileType.BLACK_TILE]
+                            : stringToColor[TileType.WHITE_TILE],
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

@@ -24,7 +24,7 @@ export enum TileType {
 
 export const stringToColor: Record<string,string> = {
     WHITE_TILE: "#e3d4cf",
-    WHITE_TILE_HIGHLIGHTED:"#aa7d6e",
+    WHITE_TILE_HIGHLIGHTED:"#d27c60",
     BLACK_TILE: "#93452a",
     BLACK_TILE_HIGHLIGHTED:"#c75c38",
 }
